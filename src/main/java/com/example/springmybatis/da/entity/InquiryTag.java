@@ -1,8 +1,8 @@
 package com.example.springmybatis.da.entity;
 
-import lombok.Data;
-
 import java.time.LocalDateTime;
+
+import lombok.Data;
 
 /**
  * 問合せタグ(inquiry_tag)
@@ -25,4 +25,36 @@ public class InquiryTag {
      * 作成日時
      */
     private LocalDateTime created;
+    
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public int getInquiryId() {
+		return inquiryId;
+	}
+
+	public void setInquiryId(int inquiryId) {
+		this.inquiryId = inquiryId;
+	}
+
+	public LocalDateTime getCreated() {
+		return created;
+	}
+
+	public void setCreated(LocalDateTime created) {
+		this.created = created;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public String getDescription() {
+		return description;
+	}
 }
