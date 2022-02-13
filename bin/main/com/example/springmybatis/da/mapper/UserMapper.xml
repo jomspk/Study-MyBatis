@@ -12,9 +12,22 @@
     </resultMap>
 
     <!-- TODO ハンズオン 5-2 resultMapタグを定義 -->
+    <resultMap type="com.example.springmybatis.da.entity.UserView" id="View_Result_Map" extends="Base_Result_Map">
+    	<collection
+    		property="inquiries"
+    		ofType="com.example.springmybatis.da.entity.Inquiry"
+    		select="selectInquiriesByUserId"
+    		column="id"/>
+    </resultMap>
 
     <!-- TODO ハンズオン 5-7 resultMapタグを定義 -->
-
+	<resultMap type="com.example.springmybatis.da.entity.UserView" id="View2_Result_Map" extends="Base_Result_Map">
+		<collection 
+			property="inquiries"
+    		ofType="com.example.springmybatis.da.entity.Inquiry"
+    		resultMap="com.example.springmybatis.da.mapper.InquiryMapper.Base_Result_Map"
+    		columnPrefix="i_"/>
+	</resultMap>
     <sql id="Base_Column_List">
         id, user_name, email, created, memo
     </sql>
@@ -111,9 +124,28 @@
     </select>
 
     <!-- TODO ハンズオン 5-3 selectタグを定義(id: selectAllView) -->
+    <select id="selectAllView" resultMap="View_Result_Map">
+    	select id, user_name, email, created, memo
+    	from user
+    	order by id
+    </select>
 
     <!-- TODO ハンズオン 5-4 selectタグを定義(id: selectInquiriesByUserId) -->
+    <select id="selectInquiriesByUserId" parameterType="int" resultMap="com.example.springmybatis.da.mapper.InquiryMapper.Base_Result_Map">
+    	select
+    	id, user_id, contents, invalid, created
+    	from inquiry
+    	where user_id = #{userId}
+    	order by id desc
+    </select>
 
     <!-- TODO ハンズオン 5-8 selectタグを定義 -->
-
+    <select id="selectAllView2" resultMap="View2_Result_Map">
+    	select
+    	u.id, u.user_name, u.email, u.created, u.memo,
+        i.id as i_id, i.user_id as i_userId, i.contents as i_contents, i.invalid as i_invalid, i.created as i_created
+        from user u
+        left join inquiry i on u.id = i.user_id
+        order by u.id, i.id desc
+    </select>
 </mapper>

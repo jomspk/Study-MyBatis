@@ -9,6 +9,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Repository;
 
 import com.example.springmybatis.da.entity.User;
+import com.example.springmybatis.da.entity.UserView;
 import com.example.springmybatis.da.query.UserSelectQuery;
 
 @Repository
@@ -40,7 +41,9 @@ public interface UserMapper {
     List<User> select(UserSelectQuery query, RowBounds rowBounds);
 
     // TODO ハンズオン 5-1 selectAllViewメソッドを定義
+    List<UserView> selectAllView();
 
     // TODO ハンズオン 5-6 selectAllView2メソッドを定義
+    List<UserView> selectAllView2();
 
 }
